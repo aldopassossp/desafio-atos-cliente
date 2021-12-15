@@ -44,7 +44,7 @@ public class EnderecosEntity implements Serializable{
 	@Column(name = "CEP")
 	private String cep;
 
-	@Column(name = "END_PADRAO")
+	@Column(name = "END_PADRAO", insertable = false, updatable = false)
 	private Boolean endPadrao;
 	
 	@Column(name = "DATA_CRIACAO")
@@ -115,7 +115,7 @@ public class EnderecosEntity implements Serializable{
 		this.cep = cep;
 	}
 
-	public Boolean getEndPadrao() {
+	public Boolean isEndPadrao() {
 		return endPadrao;
 	}
 

@@ -34,6 +34,9 @@ public class EnderecoVO {
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime dataCriacao;
 	
+	@NotNull(message = "Campo não pode ser nulo")
+	private Boolean endPadrao;
+	
 
 	public String getRua() {
 		return rua;
@@ -98,8 +101,6 @@ public class EnderecoVO {
 	public void setEndPadrao(boolean endPadrao) {
 		this.endPadrao = endPadrao;
 	}
-
-	private boolean endPadrao;
 
 	public LocalDateTime getDataCriacao() {
 		return dataCriacao;

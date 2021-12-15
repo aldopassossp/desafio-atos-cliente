@@ -17,6 +17,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import net.atos.api.cliente.domain.TipoPessoaEnum;
+
 @Entity
 @Table(name = "TB_CLIENTE")
 public class ClienteEntity {
@@ -28,10 +30,10 @@ public class ClienteEntity {
 	@Column(name = "NOME_CLIENTE")
 	private String nome;
 
-	@Column(name = "TIPO_PESSOA")
+	@Column(name = "TIPO_PESSOA", insertable = false, updatable = false)
 	@NotNull(message = "Campo Tipo Pessoa não pode ser nulo")
 	@Enumerated(EnumType.STRING)
-	private String tipoPessoa;
+	private TipoPessoaEnum tipoPessoa;
 
 	@Column(name = "DOC_PRINCIPAL")
 	private String docPrincipal;
@@ -79,12 +81,12 @@ public class ClienteEntity {
 	}
 
 
-	public String getTipoPessoa() {
+	public TipoPessoaEnum getTipoPessoa() {
 		return tipoPessoa;
 	}
 
 
-	public void setTipoPessoa(String tipoPessoa) {
+	public void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
 

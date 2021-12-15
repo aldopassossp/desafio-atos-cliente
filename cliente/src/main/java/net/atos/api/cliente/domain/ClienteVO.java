@@ -24,7 +24,7 @@ public class ClienteVO {
 	private String nome;
 	
 	@NotNull(message = "Campo Tipo Pessoa não pode ser nulo e nem vazio")
-	private String tipoPessoa;
+	private TipoPessoaEnum tipoPessoa;
 	
 	@NotNull(message = "Campo docPrincipal não pode ser nulo e nem vazio")
 	@Pattern(regexp = "[0-9]+", message = "Apenas numeros")
@@ -39,16 +39,16 @@ public class ClienteVO {
 	@Pattern(regexp = "[0-9]+", message = "Apenas numeros")
 	private String celular;
 	
-	@NotNull
+	@NotNull(message = "Campo e-mail não pode ser nulo e nem vazio")
 	@Email(message = "Campo e-mail inválido")
 	private String email;
 	
 	// Cliente ter mais de 18 anos
-	@NotNull(message = "Campo não pode ser nulo")
+	@NotNull(message = "Campo DataNascimento não pode ser nulo")
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private LocalDate dataNascimento;
 	
-	@NotNull(message = "Campo não pode ser nulo")
+	@NotNull(message = "Campo DataCriacao não pode ser nulo")
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime dataCriacao;
 	
@@ -72,11 +72,11 @@ public class ClienteVO {
 		this.nome = nome;
 	}
 
-	public String getTipoPessoa() {
+	public TipoPessoaEnum getTipoPessoa() {
 		return tipoPessoa;
 	}
 
-	public void setTipoPessoa(String tipoPessoa) { this.tipoPessoa = tipoPessoa;}
+	public void setTipoPessoa(TipoPessoaEnum tipoPessoa) { this.tipoPessoa = tipoPessoa;}
 
 	public String getDocPrincipal() {
 		return docPrincipal;

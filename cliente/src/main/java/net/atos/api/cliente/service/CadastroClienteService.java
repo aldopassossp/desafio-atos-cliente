@@ -1,6 +1,8 @@
 package net.atos.api.cliente.service;
 
 import net.atos.api.cliente.domain.ClienteVO;
+import net.atos.api.cliente.repository.ClienteRepository;
+
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -11,9 +13,12 @@ import java.util.Set;
 @Service
 public class CadastroClienteService {
 
-    private final Validator validator;
+    private Validator validator;
+    
+    private ClienteRepository clienteRepository; 
 
-    public CadastroClienteService(Validator v) { this.validator = v; }
+    public CadastroClienteService(Validator v, ClienteRepository repository) { 
+    	this.validator = v; this.clienteRepository = repository;}
 
     public void cadastrarCliente(ClienteVO clienteVO) {
         Set<ConstraintViolation<ClienteVO>>
