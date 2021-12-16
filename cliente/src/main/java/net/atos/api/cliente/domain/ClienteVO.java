@@ -1,5 +1,6 @@
 package net.atos.api.cliente.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class ClienteVO {
+public class ClienteVO{
 	
 	private long id;
 	
@@ -49,8 +50,8 @@ public class ClienteVO {
 	private LocalDate dataNascimento;
 	
 	@NotNull(message = "Campo DataCriacao não pode ser nulo")
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private LocalDateTime dataCriacao;
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private LocalDate dataCriacao;
 	
 	@NotNull(message = "Campo Endereço não pode ser nulo")
 	@Size(min = 1, message = "Campo Endereço deve ter pelo menos um Endereço")
@@ -118,12 +119,12 @@ public class ClienteVO {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public LocalDateTime getDataCriacao() {
+	public LocalDate getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(LocalDateTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
+	public void setDataCriacao(LocalDate localDate) {
+		this.dataCriacao = localDate;
 	}
 
 	public List<EnderecoVO> getEnderecos() {

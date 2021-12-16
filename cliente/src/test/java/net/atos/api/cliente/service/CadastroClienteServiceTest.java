@@ -124,7 +124,7 @@ public class CadastroClienteServiceTest {
 
 		ClienteVO cliente = new ClienteVO();
 
-		cliente.setDataCriacao(LocalDateTime.now().minusDays(1l));
+		cliente.setDataCriacao(LocalDate.now().minusDays(1l));
 		cliente.setNome("Projeto");
 		cliente.setTipoPessoa(TipoPessoaEnum.FISICA);
 		cliente.setDocPrincipal("09600015270");
@@ -134,7 +134,7 @@ public class CadastroClienteServiceTest {
 		
 		EnderecoVO endereco = new EnderecoVO();
 		endereco.setRua("Rua A");
-		endereco.setNumero((short)1001);
+		endereco.setNumero("2");
 		endereco.setComplemento("Casa");
 		endereco.setBairro("Boa Viagem");
 		endereco.setCidade("Recife");
@@ -156,22 +156,22 @@ public class CadastroClienteServiceTest {
 
 		ClienteVO cliente = new ClienteVO();
 		cliente.setId(1);
-		cliente.setNome("");
+		cliente.setNome(" ");
 		cliente.setTipoPessoa(TipoPessoaEnum.FISICA);
-		cliente.setDocPrincipal("");
-		cliente.setTelefone("");
-		cliente.setCelular("");
-		cliente.setEmail("");
+		cliente.setDocPrincipal(" ");
+		cliente.setTelefone(" ");
+		cliente.setCelular(" ");
+		cliente.setEmail(" ");
 		cliente.setDataNascimento(LocalDate.now());
-		cliente.setDataCriacao(LocalDateTime.now());
+		cliente.setDataCriacao(LocalDate.now());
 
 		EnderecoVO endereco = new EnderecoVO();
 		endereco.setRua("");
-		endereco.setNumero((short) 1);
-		endereco.setBairro("");
-		endereco.setCidade("");
-		endereco.setEstado("");
-		endereco.setCep("");
+		endereco.setNumero("2");
+		endereco.setBairro(" ");
+		endereco.setCidade(" ");
+		endereco.setEstado(" ");
+		endereco.setCep(" ");
 
 	}
 

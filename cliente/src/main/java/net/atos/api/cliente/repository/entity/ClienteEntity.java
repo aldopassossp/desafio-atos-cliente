@@ -9,12 +9,16 @@ import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -25,6 +29,8 @@ import net.atos.api.cliente.domain.TipoPessoaEnum;
 
 @Entity
 @Table(name = "TB_CLIENTE")
+@Inheritance(strategy= InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="TIPO_PESSOA", discriminatorType = DiscriminatorType.STRING)
 public class ClienteEntity implements Serializable{
 
 	/**
@@ -47,22 +53,27 @@ public class ClienteEntity implements Serializable{
 	private TipoPessoaEnum tipoPessoa;
 
 	@Column(name = "DOC_PRINCIPAL")
+	@NotNull(message = "Campo docPrincipal não pode ser nulo e nem vazio")
 	private String docPrincipal;
 
 	@Column(name = "TELEFONE")
+	@NotNull(message = "Campo telefone não pode ser nulo e nem vazio")
 	private String telefone;
 
 	@Column(name = "CELULAR")
 	private String celular;
 
 	@Column(name = "EMAIL")
+	@NotNull(message = "Campo e-mail não pode ser nulo e nem vazio")
 	private String email;
 
 	@Column(name = "DATA_NASCIMENTO")
+	@NotNull(message = "Campo DataNascimento não pode ser nulo")
 	private LocalDate dataNascimento;
 
 	@Column(name = "DATA_CRIACAO")
-	private LocalDateTime dataCriacao;
+	@NotNull(message = "Campo DataCriacao não pode ser nulo")
+	private LocalDate dataCriacao;
 
 
 	@NotNull(message = "Campo Endereços não pode ser nulo")
@@ -152,12 +163,12 @@ public class ClienteEntity implements Serializable{
 	}
 
 
-	public LocalDateTime getDataCriacao() {
+	public LocalDate getDataCriacao() {
 		return dataCriacao;
 	}
 
 
-	public void setDataCriacao(LocalDateTime dataCriacao) {
+	public void setDataCriacao(LocalDate dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 
@@ -178,6 +189,16 @@ public class ClienteEntity implements Serializable{
 
 		this.enderecos = enderecosLocal;
 	}
+
+	@Override
+	public String toString() {
+		return "ClienteEntity [id=" + id + ", nome=" + nome + ", tipoPessoa=" + tipoPessoa + ", docPrincipal="
+				+ docPrincipal + ", telefone=" + telefone + ", celular=" + celular + ", email=" + email
+				+ ", dataNascimento=" + dataNascimento + ", dataCriacao=" + dataCriacao + ", enderecos=" + enderecos
+				+ "]";
+	}
+	
+	
 
 
 

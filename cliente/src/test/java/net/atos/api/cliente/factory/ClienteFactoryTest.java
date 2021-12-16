@@ -33,12 +33,12 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		clienteVO.setCelular("8199669966");
 		clienteVO.setEmail("projeto@teste.com");
 		clienteVO.setDataNascimento(LocalDate.now());
-		clienteVO.setDataCriacao(LocalDateTime.now());
+		clienteVO.setDataCriacao(LocalDate.now());
 		clienteVO.setId(2l);
 		
 		EnderecoVO enderecoVO = new EnderecoVO();
 		enderecoVO.setRua("Rua A");
-		enderecoVO.setNumero((short)1001);
+		enderecoVO.setNumero("2");
 		enderecoVO.setComplemento("Casa");
 		enderecoVO.setBairro("Boa Viagem");
 		enderecoVO.setCidade("Recife");

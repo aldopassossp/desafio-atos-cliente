@@ -1,5 +1,6 @@
 package net.atos.api.cliente.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
@@ -14,7 +15,8 @@ public class EnderecoVO {
 	private String rua;
 	
 	//@Pattern(regexp = "[0-9]+", message = "Apenas numeros")
-	private short numero;
+	@NotNull(message = "Campo Número não pode ser nulo ou vazio")
+	private String numero;
 	
 	private String complemento;
 	
@@ -42,11 +44,11 @@ public class EnderecoVO {
 		this.rua = rua;
 	}
 
-	public short getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(short numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 

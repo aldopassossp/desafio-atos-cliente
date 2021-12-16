@@ -1,6 +1,7 @@
 package net.atos.api.cliente.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.atos.api.cliente.domain.ClienteVO;
+import net.atos.api.cliente.domain.TipoPessoaEnum;
 import net.atos.api.cliente.service.AtualizaClienteService;
 import net.atos.api.cliente.service.BuscaClienteService;
 import net.atos.api.cliente.service.CadastroClienteService;
@@ -60,21 +62,14 @@ public class ClienteController {
 	@PostMapping(produces = { MediaType.APPLICATION_JSON }, consumes = { MediaType.APPLICATION_JSON }, value = "/cadastrocliente")
 	@Operation(description = "Cadastra Cliente")
 	public ResponseEntity<ClienteVO> cadastroCliente(@Valid @RequestBody ClienteVO clienteVO) {
-		
-		
-		System.out.println("###########################################################");
-		System.out.println(clienteVO.getDataCriacao());
-		
-		clienteVO.setDataCriacao(LocalDateTime.now());
-		
-		System.out.println(clienteVO.getDataCriacao());
-		
+	
+		clienteVO.setTipoPessoa(TipoPessoaEnum.FISICA);
 		ClienteVO clienteCreated = cadastroClienteService.cadastrarCliente(clienteVO);
-		
-		System.out.println(clienteCreated.getDataCriacao());
 		
 		URI uri = MvcUriComponentsBuilder.fromController(getClass()).path("/{id}")
 				.buildAndExpand(clienteCreated.getId()).toUri();
+		
+		
 
 		return ResponseEntity.created(uri).body(clienteCreated);
 	}

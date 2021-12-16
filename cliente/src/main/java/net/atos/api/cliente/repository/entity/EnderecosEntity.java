@@ -32,24 +32,30 @@ public class EnderecosEntity implements Serializable{
 	private String rua;
 
 	@Column(name = "NUMERO")
-	private short numero;
+	@NotNull(message = "Campo Número não pode ser nulo ou vazio")
+	private String numero;
 
 	@Column(name = "COMPLEMENTO")
 	private String complemento;
 
 	@Column(name = "BAIRRO")
+	@NotNull(message = "Campo Bairro não pode ser nulo ou vazio")
 	private String bairro;
 
 	@Column(name = "CIDADE")
+	@NotNull(message = "Campo Cidade não pode ser nulo ou vazio")
 	private String cidade;
 
 	@Column(name = "ESTADO")
+	@NotNull(message = "Campo Estado não pode ser nulo ou vazio")
 	private String estado;
 
 	@Column(name = "CEP")
+	@NotNull(message = "Campo cep não pode ser nulo ou vazio")
 	private String cep;
 
 	@Column(name = "END_PADRAO", insertable = false, updatable = false)
+	@NotNull(message = "Campo não pode ser nulo")
 	private Boolean endPadrao;
 	
 
@@ -69,11 +75,11 @@ public class EnderecosEntity implements Serializable{
 		this.rua = rua;
 	}
 
-	public short getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(short numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -125,5 +131,13 @@ public class EnderecosEntity implements Serializable{
 		this.endPadrao = endPadrao;
 	}
 
+	@Override
+	public String toString() {
+		return "EnderecosEntity [id=" + id + ", rua=" + rua + ", numero=" + numero + ", complemento=" + complemento
+				+ ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", cep=" + cep + ", endPadrao="
+				+ endPadrao + "]";
+	}
+
+	
 
 }

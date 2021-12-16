@@ -24,25 +24,31 @@ public class CadastroClienteService {
     private Validator validator;
     
     private ClienteRepository clienteRepository; 
+    
 
     public CadastroClienteService(Validator v, ClienteRepository repository) { 
     	this.validator = v; this.clienteRepository = repository;}
 
     @Transactional
     public ClienteVO cadastrarCliente(@NotNull(message = "Cliente não pode ser null") ClienteVO clienteVO) {
-        Set<ConstraintViolation<ClienteVO>>
+    	Set<ConstraintViolation<ClienteVO>>
                 validateMessage = this.validator.validate(clienteVO);
 
         if (!validateMessage.isEmpty()) {
             throw new ConstraintViolationException("Cliente inválido", validateMessage);
             }
         
-        if (!clienteVO.getDataCriacao().isEqual(LocalDateTime.now())) {
+        if (!clienteVO.getDataCriacao().isEqual(LocalDate.now())) {
 			throw new BadRequestException("A data de criação deve ser atual");			
 		}
         
         ClienteEntity clienteEntity = new ClienteFactory(clienteVO).toEntity();
+        System.out.println("##################### %%%%%%%% ##############");
+        System.out.println(clienteEntity.getTipoPessoa());
+
         clienteEntity = clienteRepository.save(clienteEntity);
+        
+        
         clienteVO.setId(clienteEntity.getId());
         
         return clienteVO;

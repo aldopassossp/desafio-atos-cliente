@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -38,7 +39,7 @@ public class AtualizaClienteService {
             throw new ConstraintViolationException("Cliente inválido", validateMessage);
             }
         
-        if (!clienteVO.getDataCriacao().isEqual(LocalDateTime.now())) {
+        if (!clienteVO.getDataCriacao().isEqual(LocalDate.now())) {
 			throw new BadRequestException("A data de criação deve ser atual");			
 		}
         
