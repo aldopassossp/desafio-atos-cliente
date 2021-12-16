@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -18,6 +21,7 @@ public class EnderecosEntity implements Serializable{
 	 */
 	
 	private static final long serialVersionUID = 1L;
+	
 
 	@EmbeddedId
 	private EnderecosPK id;

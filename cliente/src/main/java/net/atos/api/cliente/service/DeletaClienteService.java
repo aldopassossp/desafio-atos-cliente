@@ -1,15 +1,18 @@
 package net.atos.api.cliente.service;
 
-import net.atos.api.cliente.domain.DeletaClienteVO;
-import net.atos.api.cliente.repository.DeletaClienteRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import javax.ws.rs.NotFoundException;
-import java.util.Set;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import net.atos.api.cliente.domain.DeletaClienteVO;
+import net.atos.api.cliente.repository.ClienteRepository;
+import net.atos.api.cliente.repository.entity.ClienteEntity;
 
 
 @Service
@@ -18,14 +21,15 @@ public class DeletaClienteService {
 
     private Validator validator;
 
-    private DeletaClienteRepository deletaClienteRepository;
+    private ClienteRepository clienteRepository;
 
 
     public DeletaClienteService(Validator pValidator,
-                               DeletaClienteRepository pDeletaClienteRepository) {
+    		ClienteRepository pclienteRepository) {
         this.validator = pValidator;
-        this.deletaClienteRepository = pDeletaClienteRepository;
+        this.clienteRepository = pclienteRepository;
     }
+    
     @Transactional
     public void deletar(DeletaClienteVO deletaClienteVO) {
         Set<ConstraintViolation<DeletaClienteVO>>
@@ -35,7 +39,7 @@ public class DeletaClienteService {
             throw new ConstraintViolationException("Cadastro inválido", validateMessages);
         }
 
-        Object clienteEncontrado = deletaClienteRepository.findByIdCliente(deletaClienteVO.getIdCliente())
+        ClienteEntity clienteEncontrado = clienteRepository.findById(deletaClienteVO.getIdCliente())
                 .orElseThrow(()-> new NotFoundException("Cadastro cliente não encontrado. idCliente="+deletaClienteVO.getIdCliente()));
     }
 

@@ -75,7 +75,7 @@ class BuscaClienteServiceTest {
         when(clienteRepository.findById(anyLong()))
                 .thenReturn(Optional.of(clienteEntity));
 
-        ClienteEntity clienteRetornado = service.porId(3L);
+       ClienteEntity clienteRetornado = service.porId(3L);
 
         then(clienteRepository).should(times(1)).findById(anyLong());
 

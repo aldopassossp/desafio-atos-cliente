@@ -1,28 +1,37 @@
 package net.atos.api.cliente.service;
 
 
-import net.atos.api.cliente.domain.DeletaClienteVO;
-import net.atos.api.cliente.repository.DeletaClienteRepository;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.then;
-
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import javax.validation.*;
-import javax.ws.rs.NotFoundException;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.ws.rs.NotFoundException;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import net.atos.api.cliente.domain.DeletaClienteVO;
+import net.atos.api.cliente.repository.ClienteRepository;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -33,7 +42,7 @@ class DeletaClienteServiceTest {
 
     private Validator validator;
 
-    private DeletaClienteRepository deletaClienteRepository;
+    private ClienteRepository clienteRepository;
 
     @BeforeAll
     public void iniciaGeral() {
@@ -46,10 +55,10 @@ class DeletaClienteServiceTest {
     @BeforeEach
     public void iniciaCadaTeste() {
 
-        this.deletaClienteRepository = Mockito.mock(DeletaClienteRepository.class);
+        this.clienteRepository = Mockito.mock(ClienteRepository.class);
 
         deletaCliente = new DeletaClienteService(this.validator,
-                this.deletaClienteRepository);
+                this.clienteRepository);
     }
 
     @Test
@@ -91,14 +100,14 @@ class DeletaClienteServiceTest {
         DeletaClienteVO deletaClienteVO = new DeletaClienteVO();
         deletaClienteVO.setIdCliente(1L);
 
-        when(this.deletaClienteRepository.findByIdCliente(anyLong())).thenReturn(Optional.empty());
+        when(this.clienteRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         var exception =
                 assertThrows(NotFoundException.class, ()-> deletaCliente.deletar(deletaClienteVO));
 
         assertNotNull(exception);
 
-        then(this.deletaClienteRepository).should(times(1)).findByIdCliente(anyLong());
+        then(this.clienteRepository).should(times(1)).findById(anyLong());
     }
 
 

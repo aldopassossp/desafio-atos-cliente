@@ -1,15 +1,19 @@
 package net.atos.api.cliente.repository.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,13 +25,15 @@ import net.atos.api.cliente.domain.TipoPessoaEnum;
 
 @Entity
 @Table(name = "TB_CLIENTE")
-public class ClienteEntity {
+public class ClienteEntity implements Serializable{
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_CLIENTE")
 	private Long id;
 
 	@Column(name = "NOME_CLIENTE")
+	@NotNull(message = "Campo Nome não pode ser nulo")
 	private String nome;
 
 	@Column(name = "TIPO_PESSOA", insertable = false, updatable = false)
@@ -57,7 +63,7 @@ public class ClienteEntity {
 	@NotNull(message = "Campo Endereços não pode ser nulo")
 	@Size(min = 1, message = "Campo Endereços deve ser pelo menos um item")
 	@Valid
-	@OneToMany(mappedBy = "id.Cliente")
+	@OneToMany(mappedBy = "id.cliente",cascade = CascadeType.ALL)
 	private List<EnderecosEntity> enderecos;
 
 

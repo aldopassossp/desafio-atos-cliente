@@ -1,5 +1,6 @@
 package net.atos.api.cliente.repository.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
-public class EnderecosPK {
+public class EnderecosPK implements Serializable{
 
 	@Column(name = "ID_END")
 	@NotNull(message = "Campo Id Endereço não pode ser nulo")
@@ -17,7 +18,7 @@ public class EnderecosPK {
 
 	@ManyToOne
 	@JoinColumn(name="ID_CLIENTE")
-	private ClienteEntity clienteEntity;
+	private ClienteEntity cliente;
 
 	public Integer getIdEnd() {
 		return idEnd;
@@ -27,17 +28,17 @@ public class EnderecosPK {
 		this.idEnd = idEnd;
 	}
 
-	public ClienteEntity getClienteEntity() {
-		return clienteEntity;
+	public ClienteEntity getCliente() {
+		return cliente;
 	}
 
-	public void setClienteEntity(ClienteEntity clienteEntity) {
-		this.clienteEntity = clienteEntity;
+	public void setCliente(ClienteEntity clienteEntity) {
+		this.cliente = clienteEntity;
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(clienteEntity, idEnd);
+		return Objects.hash(cliente, idEnd);
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class EnderecosPK {
 		if (getClass() != obj.getClass())
 			return false;
 		EnderecosPK other = (EnderecosPK) obj;
-		return Objects.equals(clienteEntity, other.clienteEntity) && Objects.equals(idEnd, other.idEnd);
+		return Objects.equals(cliente, other.cliente) && Objects.equals(idEnd, other.idEnd);
 	}
 
 

@@ -11,7 +11,9 @@ import java.util.Optional;
 @Repository
 public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
 
-    public Optional<List<ClienteEntity>> findByNome(String nome);
+//    public Optional<List<ClienteEntity>> findByNome(String nome);
+    
+ //   public Optional<ClienteEntity> findByIdCliente(Long idCliente);
 
 
 }
