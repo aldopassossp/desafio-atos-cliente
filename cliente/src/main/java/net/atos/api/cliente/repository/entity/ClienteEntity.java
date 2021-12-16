@@ -27,6 +27,11 @@ import net.atos.api.cliente.domain.TipoPessoaEnum;
 @Table(name = "TB_CLIENTE")
 public class ClienteEntity implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 240376590802536544L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_CLIENTE")

@@ -1,6 +1,7 @@
 package net.atos.api.cliente.service;
 
 import net.atos.api.cliente.domain.ClienteVO;
+import net.atos.api.cliente.factory.ClienteFactory;
 import net.atos.api.cliente.repository.ClienteRepository;
 import net.atos.api.cliente.repository.entity.ClienteEntity;
 import org.springframework.stereotype.Service;
@@ -25,10 +26,17 @@ public class BuscaClienteService {
        this.clienteRepository = repository;
     }
 
-    public ClienteEntity porId(long id) {
-       return this.clienteRepository.findById(id)
-               .orElseThrow(()-> new NotFoundException("Não encontrado cliente com id = "+id));
-    }
+//    public ClienteEntity porId(long id) {
+//       return this.clienteRepository.findById(id)
+//               .orElseThrow(()-> new NotFoundException("Não encontrado cliente com id = "+id));
+//    }
+    
+    public ClienteVO porId(long id) {
+    	ClienteEntity clienteEntity = this.clienteRepository.findById(id)
+    	.orElseThrow(()-> new NotFoundException("Não encontrado cliente com id = "+id));
+
+    	return new ClienteFactory(clienteEntity).toVO();
+    	}
 }
 
 

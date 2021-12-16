@@ -10,29 +10,25 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class EnderecoVO {
 	
-	@NotBlank(message = "Campo Rua não pode ser nulo ou vazio")
+	@NotNull(message = "Campo Rua não pode ser nulo ou vazio")
 	private String rua;
 	
-	@Pattern(regexp = "[0-9]+", message = "Apenas numeros")
+	//@Pattern(regexp = "[0-9]+", message = "Apenas numeros")
 	private short numero;
 	
 	private String complemento;
 	
-	@NotBlank(message = "Campo Bairro não pode ser nulo ou vazio")
+	@NotNull(message = "Campo Bairro não pode ser nulo ou vazio")
 	private String bairro;
 	
-	@NotBlank(message = "Campo Cidade não pode ser nulo ou vazio")
+	@NotNull(message = "Campo Cidade não pode ser nulo ou vazio")
 	private String cidade;
 	
-	@NotBlank(message = "Campo Estado não pode ser nulo ou vazio")
+	@NotNull(message = "Campo Estado não pode ser nulo ou vazio")
 	private String estado;
 	
-	@NotBlank(message = "Campo cep não pode ser nulo ou vazio")
+	@NotNull(message = "Campo cep não pode ser nulo ou vazio")
 	private String cep;
-	
-	@NotNull(message = "Campo não pode ser nulo")
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private LocalDateTime dataCriacao;
 	
 	@NotNull(message = "Campo não pode ser nulo")
 	private Boolean endPadrao;
@@ -102,11 +98,4 @@ public class EnderecoVO {
 		this.endPadrao = endPadrao;
 	}
 
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDateTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
 }

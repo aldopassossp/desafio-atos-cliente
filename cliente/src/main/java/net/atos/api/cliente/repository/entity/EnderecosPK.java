@@ -12,6 +12,11 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class EnderecosPK implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1830195603109602835L;
+
 	@Column(name = "ID_END")
 	@NotNull(message = "Campo Id Endereço não pode ser nulo")
 	private Integer idEnd;

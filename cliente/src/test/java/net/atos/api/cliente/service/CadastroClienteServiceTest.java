@@ -117,40 +117,37 @@ public class CadastroClienteServiceTest {
 	//	assertNotNull(exception);
 	}
 
-	@Test
-	void testa_quandoTodosCamposENulo_LancarExcecao() {
-
-		assertNotNull(cadastroclienteService);
-
-		ClienteVO clienteVO = new ClienteVO();
-
-		var assertThrows = assertThrows(ConstraintViolationException.class, () ->
-		cadastroclienteService.cadastrarCliente(clienteVO));
-
-		assertEquals(8, assertThrows.getConstraintViolations().size());
-		List<String> mensagens = assertThrows.getConstraintViolations()
-				.stream()
-				.map(ConstraintViolation::getMessage)
-				.collect(Collectors.toList());
-
-		assertThat(mensagens, hasItems(
-				"Campo nome não pode ser nulo e nem vazio"
-		));
-
-	}
 
 	@Test
-	void testa_quandoDataDeCriacaoDiferente_LancaExcecao () {
+	void test_quandoDataDeCriacaoDiferente_LancaExcecao () {
 		assertNotNull(cadastroclienteService);
 
 		ClienteVO cliente = new ClienteVO();
 
 		cliente.setDataCriacao(LocalDateTime.now().minusDays(1l));
+		cliente.setNome("Projeto");
+		cliente.setTipoPessoa(TipoPessoaEnum.FISICA);
+		cliente.setDocPrincipal("09600015270");
+		cliente.setTelefone("81996002547");
+		cliente.setEmail("Projeto@teste.com");
+		cliente.setDataNascimento(LocalDate.now());
+		
+		EnderecoVO endereco = new EnderecoVO();
+		endereco.setRua("Rua A");
+		endereco.setNumero((short)1001);
+		endereco.setComplemento("Casa");
+		endereco.setBairro("Boa Viagem");
+		endereco.setCidade("Recife");
+		endereco.setEstado("PE");
+		endereco.setCep("55400000");
+		endereco.setEndPadrao(false);
+		
+		cliente.add(endereco);
 
-		var exception = assertThrows(ConstraintViolationException.class, ()->
+		var assertThrows = assertThrows(BadRequestException.class, ()->
 		cadastroclienteService.cadastrarCliente(cliente));
 
-		assertEquals(exception.getMessage(), "Cliente inválido");
+		assertEquals(assertThrows.getMessage(), "A data de criação deve ser atual");
 	}
 
 	@Test
@@ -175,7 +172,6 @@ public class CadastroClienteServiceTest {
 		endereco.setCidade("");
 		endereco.setEstado("");
 		endereco.setCep("");
-		endereco.setDataCriacao(LocalDateTime.now());
 
 	}
 

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "TB_CLIENTE_ENDERECO")
@@ -27,7 +28,7 @@ public class EnderecosEntity implements Serializable{
 	private EnderecosPK id;
 
 	@Column(name = "RUA")
-	@NotBlank(message = "Campo Rua não pode ser nulo")
+	@NotNull(message = "Campo Rua não pode ser nulo")
 	private String rua;
 
 	@Column(name = "NUMERO")
@@ -50,9 +51,6 @@ public class EnderecosEntity implements Serializable{
 
 	@Column(name = "END_PADRAO", insertable = false, updatable = false)
 	private Boolean endPadrao;
-	
-	@Column(name = "DATA_CRIACAO")
-	private LocalDateTime dataCriacao;
 	
 
 	public EnderecosPK getId() {
@@ -126,20 +124,6 @@ public class EnderecosEntity implements Serializable{
 	public void setEndPadrao(Boolean endPadrao) {
 		this.endPadrao = endPadrao;
 	}
-
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDateTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-
-
-
-
-
 
 
 }

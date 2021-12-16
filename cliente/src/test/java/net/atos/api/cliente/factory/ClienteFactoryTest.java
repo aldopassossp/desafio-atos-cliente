@@ -99,8 +99,6 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		assertEquals(clienteVO.getEnderecos().get(0).isEndPadrao(), 
 				clienteEntitycriada.getEnderecos().get(0).isEndPadrao());
 		
-		assertEquals(clienteVO.getEnderecos().get(0).getDataCriacao(), 
-				clienteEntitycriada.getEnderecos().get(0).getDataCriacao());
 		
 		ClienteVO voClienteCriado = new ClienteFactory(clienteEntitycriada).toVO();
 		
@@ -152,9 +150,7 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		
 		assertEquals(clienteVO.getEnderecos().get(0).isEndPadrao(), 
 				voClienteCriado.getEnderecos().get(0).isEndPadrao());
-		
-		assertEquals(clienteVO.getEnderecos().get(0).getDataCriacao(), 
-				voClienteCriado.getEnderecos().get(0).getDataCriacao());
+
 		
 
 		

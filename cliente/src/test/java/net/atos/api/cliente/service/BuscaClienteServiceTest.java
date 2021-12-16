@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
 
+import net.atos.api.cliente.domain.ClienteVO;
 import net.atos.api.cliente.repository.ClienteRepository;
 import net.atos.api.cliente.repository.entity.ClienteEntity;
 import org.junit.jupiter.api.*;
@@ -75,7 +76,7 @@ class BuscaClienteServiceTest {
         when(clienteRepository.findById(anyLong()))
                 .thenReturn(Optional.of(clienteEntity));
 
-       ClienteEntity clienteRetornado = service.porId(3L);
+       ClienteVO clienteRetornado = service.porId(3L);
 
         then(clienteRepository).should(times(1)).findById(anyLong());
 

@@ -55,7 +55,6 @@ public class ClienteFactory {
 		enderecoVO.setCidade(enderecoEntity.getCidade());
 		enderecoVO.setEstado(enderecoEntity.getEstado());
 		enderecoVO.setCep(enderecoEntity.getCep());
-		enderecoVO.setDataCriacao(enderecoEntity.getDataCriacao());
 		
 		clienteVO.add(enderecoVO);
 	}
@@ -92,7 +91,6 @@ public class ClienteFactory {
 		enderecoEntity.setCidade(enderecoVO.getCidade());
 		enderecoEntity.setEstado(enderecoVO.getEstado());
 		enderecoEntity.setCep(enderecoVO.getCep());
-		enderecoEntity.setDataCriacao(enderecoVO.getDataCriacao());
 		
 		clienteEntity.add(enderecoEntity);
 		
