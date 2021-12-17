@@ -84,6 +84,7 @@ public class ClienteFactory {
 //		enderecoEntity.setId(new EnderecosPK());
 //		enderecoEntity.getId().setIdEnd(numeroEndereco.incrementAndGet());
 //		enderecoEntity.getId().setCliente(clienteEntity);
+		enderecoEntity.setCliente(clienteEntity);
 		enderecoEntity.setRua(enderecoVO.getRua());
 		enderecoEntity.setNumero(enderecoVO.getNumero());
 		enderecoEntity.setComplemento(enderecoVO.getComplemento());

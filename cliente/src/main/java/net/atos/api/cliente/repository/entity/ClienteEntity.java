@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,7 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +26,8 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import net.atos.api.cliente.domain.TipoPessoaEnum;
 
@@ -46,7 +50,7 @@ public class ClienteEntity implements Serializable{
 	private String nome;
 
 	@Column(name = "TIPO_PESSOA", insertable = false, updatable = false)
-	@NotNull(message = "Campo Tipo Pessoa não pode ser nulo")
+//	@NotNull(message = "Campo Tipo Pessoa não pode ser nulo")
 	@Enumerated(EnumType.STRING)
 	private TipoPessoaEnum tipoPessoa;
 
@@ -74,11 +78,13 @@ public class ClienteEntity implements Serializable{
 	private LocalDate dataCriacao;
 
 
-	@NotNull(message = "Campo Endereços não pode ser nulo")
-	@Size(min = 1, message = "Campo Endereços deve ser pelo menos um item")
-	@Valid
-//	@OneToMany(mappedBy = "id.cliente",cascade = CascadeType.ALL)
-	@OneToMany
+//	@NotNull(message = "Campo Endereços não pode ser nulo")
+//	@Size(min = 1, message = "Campo Endereços deve ser pelo menos um item")
+//	@Valid
+//	@OneToMany(mappedBy = "tb_cliente")
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<EnderecosEntity> enderecos;
 
 
@@ -188,6 +194,27 @@ public class ClienteEntity implements Serializable{
 
 		this.enderecos = enderecosLocal;
 	}
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ClienteEntity other = (ClienteEntity) obj;
+		return Objects.equals(id, other.id);
+	}
+
 
 	@Override
 	public String toString() {

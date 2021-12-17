@@ -2,6 +2,7 @@ package net.atos.api.cliente.repository.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +17,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "TB_CLIENTE_ENDERECO")
 public class EnderecosEntity implements Serializable{
@@ -28,7 +31,7 @@ public class EnderecosEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_CLIENTE")
+	@Column(name = "ID_END")
 	private Long id;
 
 	@Column(name = "RUA")
@@ -59,13 +62,28 @@ public class EnderecosEntity implements Serializable{
 	private String cep;
 
 	@Column(name = "END_PADRAO", insertable = false, updatable = false)
-	@NotNull(message = "Campo não pode ser nulo")
+//	@NotNull(message = "Campo Endereço padrão não pode ser nulo")
 	private Boolean endPadrao;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="id_cliente", insertable = false, updatable = false)
+//	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
+//	@JsonIgnore
+//	@JoinColumn(name="id_cliente", insertable = false, updatable = false)
+	@JoinColumn(name = "id_cliente")
 	private ClienteEntity cliente;
 	
+
+	public ClienteEntity getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteEntity cliente) {
+		this.cliente = cliente;
+	}
+
+	public Boolean getEndPadrao() {
+		return endPadrao;
+	}
 
 	public String getRua() {
 		return rua;
@@ -129,6 +147,24 @@ public class EnderecosEntity implements Serializable{
 
 	public void setEndPadrao(Boolean endPadrao) {
 		this.endPadrao = endPadrao;
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EnderecosEntity other = (EnderecosEntity) obj;
+		return Objects.equals(id, other.id);
 	}
 
 	@Override

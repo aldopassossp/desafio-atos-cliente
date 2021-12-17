@@ -24,7 +24,7 @@ public class ClienteVO{
 			+ "no mínimo 3 carecteres, máximo 100 carecteres")
 	private String nome;
 	
-	@NotNull(message = "Campo Tipo Pessoa não pode ser nulo e nem vazio")
+//	@NotNull(message = "Campo Tipo Pessoa não pode ser nulo e nem vazio")
 	private TipoPessoaEnum tipoPessoa;
 	
 	@NotNull(message = "Campo docPrincipal não pode ser nulo e nem vazio")
@@ -53,7 +53,7 @@ public class ClienteVO{
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private LocalDate dataCriacao;
 	
-	@NotNull(message = "Campo Endereço não pode ser nulo")
+//	@NotNull(message = "Campo Endereço não pode ser nulo")
 	@Size(min = 1, message = "Campo Endereço deve ter pelo menos um Endereço")
 	@Valid
 	private List<EnderecoVO> enderecos;
