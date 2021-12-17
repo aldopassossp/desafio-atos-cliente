@@ -10,6 +10,7 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,10 +54,11 @@ public class ClienteController {
 //		this.cancelaNotaFiscalVendaService = cancelaService;
 //	}
 	public ClienteController(BuscaClienteService buscaClienteService, CadastroClienteService cadastroClienteService,
-			DeletaClienteService deletaClienteService) {
+			AtualizaClienteService atualizcaClienteService, DeletaClienteService deletaClienteService) {
 		super();
 		this.buscaClienteService = buscaClienteService;
 		this.cadastroClienteService = cadastroClienteService;
+		this.atualizaClienteService = atualizcaClienteService;
 		this.deletaClienteService = deletaClienteService;
 	}
 
