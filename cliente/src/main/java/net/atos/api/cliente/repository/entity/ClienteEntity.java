@@ -85,6 +85,7 @@ public class ClienteEntity implements Serializable{
 //	@JsonIgnore
 //	@OneToMany(fetch = FetchType.EAGER)
 	@OneToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<EnderecosEntity> enderecos;
 
 

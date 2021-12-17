@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.BeanUtils;
@@ -62,8 +63,7 @@ public class ClienteController {
 	@PostMapping(produces = { MediaType.APPLICATION_JSON }, consumes = { MediaType.APPLICATION_JSON }, value = "/cadastrocliente")
 	@Operation(description = "Cadastra Cliente")
 	public ResponseEntity<ClienteVO> cadastroCliente(@Valid @RequestBody ClienteVO clienteVO) {
-	
-		clienteVO.setTipoPessoa(TipoPessoaEnum.FISICA);
+
 		ClienteVO clienteCreated = cadastroClienteService.cadastrarCliente(clienteVO);
 		
 		URI uri = MvcUriComponentsBuilder.fromController(getClass()).path("/{id}")
@@ -74,16 +74,16 @@ public class ClienteController {
 		return ResponseEntity.created(uri).body(clienteCreated);
 	}
 
-	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON })
+	@GetMapping(value = "/buscacliente/{id}", produces = { MediaType.APPLICATION_JSON })
 	@Operation(description = "Consulta cliente por id")
 	public ResponseEntity<ClienteVO> getClientePorId(@PathVariable("id") Long id) {
 
-		ClienteVO clienteEncontrado = (ClienteVO) buscaClienteService.porId(id);
+		ClienteVO clienteEncontrado = buscaClienteService.porId(id);
 
 		return ResponseEntity.ok(clienteEncontrado);
 	}
 
-	@PutMapping(produces = { MediaType.APPLICATION_JSON }, consumes = { MediaType.APPLICATION_JSON }, value = "/{id}")
+	@PutMapping(produces = { MediaType.APPLICATION_JSON }, consumes = { MediaType.APPLICATION_JSON }, value = "/atualizacliente/{id}")
 	@Operation(description = "Atualiza Cliente")
 	public ResponseEntity<?> atualizaCliente(@Valid @PathVariable Long id, @RequestBody ClienteVO clienteVO) {
 
@@ -95,9 +95,23 @@ public class ClienteController {
 		
 		try {
 			BeanUtils.copyProperties(clienteVO, clienteAtual.get(), "id");
-			ClienteVO clienteSalvo = atualizaClienteService.atualizarCliente(clienteAtual.get());
+				
+			ClienteVO teste = clienteAtual.get();
+			
+			System.out.println(clienteAtual.get().getEnderecos().get(0).getId());
+			System.out.println(clienteAtual.get().getEnderecos().get(1).getId());
+			System.out.println(clienteAtual.get().getEnderecos().get(0).getCidade());
+			System.out.println("####################### Cliente TESTE ABAIXO");
+			System.out.println(teste.getEnderecos().get(0).getId());
+			
+			System.out.println(teste.toString());
+			System.out.println(teste.getEnderecos().toString());
+			ClienteVO clienteSalvo = atualizaClienteService.atualizarCliente(teste);
+			
+			
 			return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
-		} catch (Exception e ) {
+		} catch (BadRequestException e ) {
+			
 			return ResponseEntity.badRequest().body(e.getMessage());
 			
 		}

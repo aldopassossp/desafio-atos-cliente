@@ -61,9 +61,9 @@ public class EnderecosEntity implements Serializable{
 	@NotNull(message = "Campo cep não pode ser nulo ou vazio")
 	private String cep;
 
-	@Column(name = "END_PADRAO", insertable = false, updatable = false)
+//	@Column(name = "END_PADRAO", insertable = false, updatable = false)
 //	@NotNull(message = "Campo Endereço padrão não pode ser nulo")
-	private Boolean endPadrao;
+//	private Boolean endPadrao;
 	
 //	@ManyToOne(cascade = CascadeType.ALL)
 	@ManyToOne
@@ -81,9 +81,9 @@ public class EnderecosEntity implements Serializable{
 		this.cliente = cliente;
 	}
 
-	public Boolean getEndPadrao() {
-		return endPadrao;
-	}
+//	public Boolean getEndPadrao() {
+//		return endPadrao;
+//	}
 
 	public String getRua() {
 		return rua;
@@ -141,19 +141,29 @@ public class EnderecosEntity implements Serializable{
 		this.cep = cep;
 	}
 
-	public Boolean isEndPadrao() {
-		return endPadrao;
+//	public Boolean isEndPadrao() {
+//		return endPadrao;
+//	}
+//
+//	public void setEndPadrao(Boolean endPadrao) {
+//		this.endPadrao = endPadrao;
+//	}
+	
+	public Long getId() {
+		return id;
 	}
 
-	public void setEndPadrao(Boolean endPadrao) {
-		this.endPadrao = endPadrao;
+	public void setId(Long id) {
+		this.id = id;
 	}
+
 
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -171,7 +181,7 @@ public class EnderecosEntity implements Serializable{
 	public String toString() {
 		return "EnderecosEntity [id=" + id + ", rua=" + rua + ", numero=" + numero + ", complemento=" + complemento
 				+ ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", cep=" + cep + ", endPadrao="
-				+ endPadrao + "]";
+				+  "]";
 	}
 
 	

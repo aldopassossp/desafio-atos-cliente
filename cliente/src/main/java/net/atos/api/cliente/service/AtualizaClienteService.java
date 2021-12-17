@@ -32,6 +32,9 @@ public class AtualizaClienteService {
     
     @Transactional
     public ClienteVO atualizarCliente(@NotNull(message = "Cliente não pode ser null") ClienteVO clienteVO) {
+    	
+    	System.out.println("Dentro atualizarCliente");
+    	System.out.println(clienteVO.toString());
         Set<ConstraintViolation<ClienteVO>>
                 validateMessage = this.validator.validate(clienteVO);
 
@@ -44,6 +47,7 @@ public class AtualizaClienteService {
 		}
         
         ClienteEntity clienteEntity = new ClienteFactory(clienteVO).toEntity();
+        System.out.println(clienteEntity.toString());
         clienteEntity = clienteRepository.save(clienteEntity);
         clienteVO.setId(clienteEntity.getId());
         

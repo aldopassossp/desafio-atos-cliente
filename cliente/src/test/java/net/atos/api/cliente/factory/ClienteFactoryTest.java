@@ -43,7 +43,7 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		enderecoVO.setBairro("Boa Viagem");
 		enderecoVO.setCidade("Recife");
 		enderecoVO.setEstado("PE");
-		enderecoVO.setEndPadrao(false);
+		//enderecoVO.setEndPadrao(false);
 		
 		clienteVO.add(enderecoVO);
 		
@@ -96,8 +96,8 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		assertEquals(clienteVO.getEnderecos().get(0).getCep(), 
 				clienteEntitycriada.getEnderecos().get(0).getCep());
 		
-		assertEquals(clienteVO.getEnderecos().get(0).isEndPadrao(), 
-				clienteEntitycriada.getEnderecos().get(0).isEndPadrao());
+//		assertEquals(clienteVO.getEnderecos().get(0).isEndPadrao(), 
+//				clienteEntitycriada.getEnderecos().get(0).isEndPadrao());
 		
 		
 		ClienteVO voClienteCriado = new ClienteFactory(clienteEntitycriada).toVO();
@@ -148,8 +148,8 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		assertEquals(clienteVO.getEnderecos().get(0).getCep(), 
 				voClienteCriado.getEnderecos().get(0).getCep());
 		
-		assertEquals(clienteVO.getEnderecos().get(0).isEndPadrao(), 
-				voClienteCriado.getEnderecos().get(0).isEndPadrao());
+//		assertEquals(clienteVO.getEnderecos().get(0).isEndPadrao(), 
+//				voClienteCriado.getEnderecos().get(0).isEndPadrao());
 
 		
 

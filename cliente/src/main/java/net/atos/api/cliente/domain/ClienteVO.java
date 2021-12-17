@@ -143,5 +143,15 @@ public class ClienteVO{
 		this.enderecos = enderecoLocal; 
 	}
 
+	@Override
+	public String toString() {
+		return "ClienteVO [id=" + id + ", nome=" + nome + ", tipoPessoa=" + tipoPessoa + ", docPrincipal="
+				+ docPrincipal + ", telefone=" + telefone + ", celular=" + celular + ", email=" + email
+				+ ", dataNascimento=" + dataNascimento + ", dataCriacao=" + dataCriacao + ", enderecos=" + enderecos
+				+ "]";
+	}
+	
+	
+
 
 }

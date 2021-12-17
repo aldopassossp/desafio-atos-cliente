@@ -11,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class EnderecoVO {
 	
+	
+	private Long id;
+	
 	@NotNull(message = "Campo Rua não pode ser nulo ou vazio")
 	private String rua;
 	
@@ -32,8 +35,8 @@ public class EnderecoVO {
 	@NotNull(message = "Campo cep não pode ser nulo ou vazio")
 	private String cep;
 	
-	@NotNull(message = "Campo não pode ser nulo")
-	private Boolean endPadrao;
+//	@NotNull(message = "Campo não pode ser nulo")
+//	private Boolean endPadrao;
 	
 
 	public String getRua() {
@@ -91,13 +94,32 @@ public class EnderecoVO {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
-	public boolean isEndPadrao() {
-		return endPadrao;
+	
+	public Long getId() {
+		return id;
 	}
 
-	public void setEndPadrao(boolean endPadrao) {
-		this.endPadrao = endPadrao;
+	public void setId(Long id) {
+		this.id = id;
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "EnderecoVO [rua=" + rua + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro
+				+ ", cidade=" + cidade + ", estado=" + estado + ", cep=" + cep + "]";
+	}
+	
+
+//	public boolean isEndPadrao() {
+//		return endPadrao;
+//	}
+//
+//	public void setEndPadrao(boolean endPadrao) {
+//		this.endPadrao = endPadrao;
+//	}
+	
+	
 
 }
