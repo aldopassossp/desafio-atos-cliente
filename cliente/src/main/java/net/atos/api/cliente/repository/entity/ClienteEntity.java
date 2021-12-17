@@ -29,14 +29,12 @@ import net.atos.api.cliente.domain.TipoPessoaEnum;
 
 @Entity
 @Table(name = "TB_CLIENTE")
-@Inheritance(strategy= InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="TIPO_PESSOA", discriminatorType = DiscriminatorType.STRING)
 public class ClienteEntity implements Serializable{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 240376590802536544L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,7 +77,8 @@ public class ClienteEntity implements Serializable{
 	@NotNull(message = "Campo Endereços não pode ser nulo")
 	@Size(min = 1, message = "Campo Endereços deve ser pelo menos um item")
 	@Valid
-	@OneToMany(mappedBy = "id.cliente",cascade = CascadeType.ALL)
+//	@OneToMany(mappedBy = "id.cliente",cascade = CascadeType.ALL)
+	@OneToMany
 	private List<EnderecosEntity> enderecos;
 
 

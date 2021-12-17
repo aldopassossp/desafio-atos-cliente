@@ -10,7 +10,7 @@ import javax.ws.rs.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.atos.api.cliente.domain.DeletaClienteVO;
+import net.atos.api.cliente.domain.ClienteVO;
 import net.atos.api.cliente.repository.ClienteRepository;
 import net.atos.api.cliente.repository.entity.ClienteEntity;
 
@@ -31,16 +31,16 @@ public class DeletaClienteService {
     }
     
     @Transactional
-    public void deletar(DeletaClienteVO deletaClienteVO) {
-        Set<ConstraintViolation<DeletaClienteVO>>
-                validateMessages = this.validator.validate(deletaClienteVO);
+    public void deletar(ClienteVO clienteVO) {
+        Set<ConstraintViolation<ClienteVO>>
+                validateMessages = this.validator.validate(clienteVO);
 
         if (!validateMessages.isEmpty()) {
             throw new ConstraintViolationException("Cadastro inválido", validateMessages);
         }
 
-        ClienteEntity clienteEncontrado = clienteRepository.findById(deletaClienteVO.getIdCliente())
-                .orElseThrow(()-> new NotFoundException("Cadastro cliente não encontrado. idCliente="+deletaClienteVO.getIdCliente()));
+        ClienteEntity clienteEncontrado = clienteRepository.findById(clienteVO.getId())
+                .orElseThrow(()-> new NotFoundException("Cadastro cliente não encontrado. idCliente="+clienteVO.getId()));
     }
 
     }

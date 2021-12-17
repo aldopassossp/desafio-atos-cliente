@@ -3,12 +3,15 @@ package net.atos.api.cliente.repository.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -23,9 +26,10 @@ public class EnderecosEntity implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-
-	@EmbeddedId
-	private EnderecosPK id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_CLIENTE")
+	private Long id;
 
 	@Column(name = "RUA")
 	@NotNull(message = "Campo Rua não pode ser nulo")
@@ -58,14 +62,10 @@ public class EnderecosEntity implements Serializable{
 	@NotNull(message = "Campo não pode ser nulo")
 	private Boolean endPadrao;
 	
-
-	public EnderecosPK getId() {
-		return id;
-	}
-
-	public void setId(EnderecosPK id) {
-		this.id = id;
-	}
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_cliente", insertable = false, updatable = false)
+	private ClienteEntity cliente;
+	
 
 	public String getRua() {
 		return rua;

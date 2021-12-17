@@ -9,7 +9,6 @@ import net.atos.api.cliente.domain.ClienteVO;
 import net.atos.api.cliente.domain.EnderecoVO;
 import net.atos.api.cliente.repository.entity.ClienteEntity;
 import net.atos.api.cliente.repository.entity.EnderecosEntity;
-import net.atos.api.cliente.repository.entity.EnderecosPK;
 
 public class ClienteFactory {
 	
@@ -82,9 +81,9 @@ public class ClienteFactory {
 	
 	private void construirEnderecoEntity(ClienteEntity clienteEntity, AtomicInteger numeroEndereco, EnderecoVO enderecoVO) {
 		EnderecosEntity enderecoEntity = new EnderecosEntity();
-		enderecoEntity.setId(new EnderecosPK());
-		enderecoEntity.getId().setIdEnd(numeroEndereco.incrementAndGet());
-		enderecoEntity.getId().setCliente(clienteEntity);
+//		enderecoEntity.setId(new EnderecosPK());
+//		enderecoEntity.getId().setIdEnd(numeroEndereco.incrementAndGet());
+//		enderecoEntity.getId().setCliente(clienteEntity);
 		enderecoEntity.setRua(enderecoVO.getRua());
 		enderecoEntity.setNumero(enderecoVO.getNumero());
 		enderecoEntity.setComplemento(enderecoVO.getComplemento());

@@ -30,7 +30,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import net.atos.api.cliente.domain.DeletaClienteVO;
+import net.atos.api.cliente.domain.ClienteVO;
 import net.atos.api.cliente.repository.ClienteRepository;
 
 
@@ -65,7 +65,7 @@ class DeletaClienteServiceTest {
     public void testa_quandoNaoPassarObjetoDeletaCliente_LancarExcecao() {
         assertNotNull(deletaCliente);
 
-        DeletaClienteVO deletaClienteVO = null;
+        ClienteVO deletaClienteVO = null;
 
         var exception = assertThrows(IllegalArgumentException.class,()->
                 deletaCliente.deletar(deletaClienteVO));
@@ -77,7 +77,7 @@ class DeletaClienteServiceTest {
     public void testa_quandoNaoPassarAtributosObrigatorios_LancarExcecao() {
         assertNotNull(deletaCliente);
 
-        DeletaClienteVO deletaClienteVO = new DeletaClienteVO();
+        ClienteVO deletaClienteVO = new ClienteVO();
 
         var exception = assertThrows(ConstraintViolationException.class,()->
                 deletaCliente.deletar(deletaClienteVO));
@@ -97,8 +97,8 @@ class DeletaClienteServiceTest {
     public void testa_quandoNaoEncontraClienteCadastrado_LancarExcecao() {
         assertNotNull(deletaCliente);
 
-        DeletaClienteVO deletaClienteVO = new DeletaClienteVO();
-        deletaClienteVO.setIdCliente(1L);
+        ClienteVO deletaClienteVO = new ClienteVO();
+        deletaClienteVO.setId(1L);
 
         when(this.clienteRepository.findById(anyLong())).thenReturn(Optional.empty());
 
