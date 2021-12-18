@@ -61,14 +61,7 @@ public class EnderecosEntity implements Serializable{
 	@NotNull(message = "Campo cep não pode ser nulo ou vazio")
 	private String cep;
 
-//	@Column(name = "END_PADRAO", insertable = false, updatable = false)
-//	@NotNull(message = "Campo Endereço padrão não pode ser nulo")
-//	private Boolean endPadrao;
-	
-//	@ManyToOne(cascade = CascadeType.ALL)
 	@ManyToOne
-//	@JsonIgnore
-//	@JoinColumn(name="id_cliente", insertable = false, updatable = false)
 	@JoinColumn(name = "id_cliente")
 	private ClienteEntity cliente;
 	
@@ -80,10 +73,6 @@ public class EnderecosEntity implements Serializable{
 	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
-
-//	public Boolean getEndPadrao() {
-//		return endPadrao;
-//	}
 
 	public String getRua() {
 		return rua;
@@ -140,14 +129,6 @@ public class EnderecosEntity implements Serializable{
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
-//	public Boolean isEndPadrao() {
-//		return endPadrao;
-//	}
-//
-//	public void setEndPadrao(Boolean endPadrao) {
-//		this.endPadrao = endPadrao;
-//	}
 	
 	public Long getId() {
 		return id;
@@ -184,6 +165,5 @@ public class EnderecosEntity implements Serializable{
 				+  "]";
 	}
 
-	
 
 }

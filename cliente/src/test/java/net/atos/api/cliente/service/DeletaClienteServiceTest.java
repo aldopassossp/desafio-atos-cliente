@@ -74,40 +74,14 @@ class DeletaClienteServiceTest {
     }
 
     @Test
-    public void testa_quandoNaoPassarAtributosObrigatorios_LancarExcecao() {
+    public void testa_quandoClienteNULL_LancarExcecao() {
         assertNotNull(deletaCliente);
 
-        ClienteVO deletaClienteVO = new ClienteVO();
+        ClienteVO clienteVO = null;
 
-        var exception = assertThrows(ConstraintViolationException.class,()->
-                deletaCliente.deletar(deletaClienteVO));
-
-        assertNotNull(exception);
-        assertEquals(1, exception.getConstraintViolations().size());
-
-        List<String> mensagens = exception.getConstraintViolations()
-                .stream()
-                .map(ConstraintViolation::getMessage)
-                .collect(Collectors.toList());
-
-        assertThat(mensagens, hasItems("Campo id não pode ser null"));
-    }
-
-    @Test
-    public void testa_quandoNaoEncontraClienteCadastrado_LancarExcecao() {
-        assertNotNull(deletaCliente);
-
-        ClienteVO deletaClienteVO = new ClienteVO();
-        deletaClienteVO.setId(1L);
-
-        when(this.clienteRepository.findById(anyLong())).thenReturn(Optional.empty());
-
-        var exception =
-                assertThrows(NotFoundException.class, ()-> deletaCliente.deletar(deletaClienteVO));
-
-        assertNotNull(exception);
-
-        then(this.clienteRepository).should(times(1)).findById(anyLong());
+        var assertThrows = assertThrows(IllegalArgumentException.class, ()-> deletaCliente.deletar(clienteVO));
+        
+        assertNotNull(assertThrows);
     }
 
 

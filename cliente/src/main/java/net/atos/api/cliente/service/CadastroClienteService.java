@@ -43,8 +43,6 @@ public class CadastroClienteService {
 		}
         
         ClienteEntity clienteEntity = new ClienteFactory(clienteVO).toEntity();
-        System.out.println("##################### %%%%%%%% ##############");
-        System.out.println(clienteEntity.getTipoPessoa());
 
         clienteEntity = clienteRepository.save(clienteEntity);
         

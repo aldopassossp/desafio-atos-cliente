@@ -1,8 +1,6 @@
 package net.atos.api.cliente.controller;
 
 import java.net.URI;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -10,9 +8,9 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +23,6 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.atos.api.cliente.domain.ClienteVO;
-import net.atos.api.cliente.domain.TipoPessoaEnum;
 import net.atos.api.cliente.service.AtualizaClienteService;
 import net.atos.api.cliente.service.BuscaClienteService;
 import net.atos.api.cliente.service.CadastroClienteService;
@@ -46,19 +43,12 @@ public class ClienteController {
 	
 	private AtualizaClienteService atualizaClienteService;
 
-//	public ClienteController(List<CadastroClienteService> strategies, BuscaClienteService buscaNotaFiscalService,
-//			CancelaNotaFiscalVendaService cancelaService) {
-//		super();
-//		this.buscaNotaFiscalService = buscaNotaFiscalService;
-//		this.criacaoNotaFiscalStrategies = strategies;
-//		this.cancelaNotaFiscalVendaService = cancelaService;
-//	}
 	public ClienteController(BuscaClienteService buscaClienteService, CadastroClienteService cadastroClienteService,
-			AtualizaClienteService atualizcaClienteService, DeletaClienteService deletaClienteService) {
+			AtualizaClienteService atualizaClienteService, DeletaClienteService deletaClienteService) {
 		super();
 		this.buscaClienteService = buscaClienteService;
 		this.cadastroClienteService = cadastroClienteService;
-		this.atualizaClienteService = atualizcaClienteService;
+		this.atualizaClienteService = atualizaClienteService;
 		this.deletaClienteService = deletaClienteService;
 	}
 
@@ -100,17 +90,8 @@ public class ClienteController {
 				
 			ClienteVO teste = clienteAtual.get();
 			
-			System.out.println(clienteAtual.get().getEnderecos().get(0).getId());
-			System.out.println(clienteAtual.get().getEnderecos().get(1).getId());
-			System.out.println(clienteAtual.get().getEnderecos().get(0).getCidade());
-			System.out.println("####################### Cliente TESTE ABAIXO");
-			System.out.println(teste.getEnderecos().get(0).getId());
-			
-			System.out.println(teste.toString());
-			System.out.println(teste.getEnderecos().toString());
 			ClienteVO clienteSalvo = atualizaClienteService.atualizarCliente(teste);
-			
-			
+						
 			return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
 		} catch (BadRequestException e ) {
 			
@@ -120,31 +101,29 @@ public class ClienteController {
 		
 
 	}
+	
+	@DeleteMapping("/deletacliente/{id}")
+	@Operation(description = "Deleta Cliente")
+	public ResponseEntity<?> deletaCliente(@Valid @PathVariable Long id) {
 
-//	@GetMapping(value = "/documentos/{documento}", produces = { MediaType.APPLICATION_JSON })
-//	@Operation(description = "Consulta notas fiscais por documento")
-//	public ResponseEntity<List<ClienteVO>> getNotaFiscaisPorDocumentos(@PathVariable("documento") String documento) {
-//
-//		List<NotaFiscalVO> notasFiscaisEncontradas = this.buscaClienteService.porDocumento(documento);
-//
-//		return ResponseEntity.ok(notasFiscaisEncontradas);
-//
-//	}
-//
-//	@PageableBinding
-//	@GetMapping(value = "/emissao-periodos/{dataInicio}/{dataFim}", produces = { MediaType.APPLICATION_JSON })
-//	@Operation(description = "Consulta notas fiscais por período")
-//	public ResponseEntity<Page<NotaFiscalVO>> getNotaFiscaisPorPeriodo(
-//			@PathVariable("dataInicio") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate dataInicio,
-//			@PathVariable("dataFim") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate dataFim,
-//			@ParameterObject @PageableDefault(sort = {
-//					"dataEmissao" }, direction = Direction.DESC, page = 0, size = 10) Pageable pageable) {
-//
-//		Page<NotaFiscalVO> notasFiscaisEncontradas = this.buscaNotaFiscalService.porPeriodoDataEmissao(dataInicio,
-//				dataFim, pageable);
-//
-//		return ResponseEntity.ok(notasFiscaisEncontradas);
-//
-//	}
+		Optional<ClienteVO> cliente = Optional.ofNullable(buscaClienteService.porId(id));
+		
+		if(cliente.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		try {
+			this.deletaClienteService.deletar(cliente.get());
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			
+		} catch (BadRequestException e) {
+			
+			return ResponseEntity.badRequest().body(e.getMessage());
+			// TODO: handle exception
+		}
+		
+	
+	}
+
 
 }

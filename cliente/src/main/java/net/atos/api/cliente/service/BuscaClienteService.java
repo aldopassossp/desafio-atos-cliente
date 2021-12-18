@@ -26,10 +26,6 @@ public class BuscaClienteService {
        this.clienteRepository = repository;
     }
 
-//    public ClienteEntity porId(long id) {
-//       return this.clienteRepository.findById(id)
-//               .orElseThrow(()-> new NotFoundException("Não encontrado cliente com id = "+id));
-//    }
     
     public ClienteVO porId(long id) {
     	ClienteEntity clienteEntity = this.clienteRepository.findById(id)

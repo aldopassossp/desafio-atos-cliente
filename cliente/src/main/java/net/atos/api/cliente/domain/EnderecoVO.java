@@ -35,9 +35,6 @@ public class EnderecoVO {
 	@NotNull(message = "Campo cep não pode ser nulo ou vazio")
 	private String cep;
 	
-//	@NotNull(message = "Campo não pode ser nulo")
-//	private Boolean endPadrao;
-	
 
 	public String getRua() {
 		return rua;
@@ -110,16 +107,6 @@ public class EnderecoVO {
 		return "EnderecoVO [rua=" + rua + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro
 				+ ", cidade=" + cidade + ", estado=" + estado + ", cep=" + cep + "]";
 	}
-	
-
-//	public boolean isEndPadrao() {
-//		return endPadrao;
-//	}
-//
-//	public void setEndPadrao(boolean endPadrao) {
-//		this.endPadrao = endPadrao;
-//	}
-	
 	
 
 }

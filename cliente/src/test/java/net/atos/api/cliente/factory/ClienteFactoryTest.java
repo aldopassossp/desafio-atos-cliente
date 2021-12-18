@@ -1,9 +1,9 @@
 package net.atos.api.cliente.factory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import net.atos.api.cliente.domain.ClienteVO;
 import net.atos.api.cliente.domain.EnderecoVO;
-import net.atos.api.cliente.domain.TipoPessoaEnum;
 import net.atos.api.cliente.repository.entity.ClienteEntity;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,7 +26,6 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		
 		ClienteVO clienteVO = new ClienteVO();
 		clienteVO.setNome("Projeto");
-		clienteVO.setTipoPessoa(TipoPessoaEnum.FISICA);
 		clienteVO.setDocPrincipal("09602400012");
 		clienteVO.setTelefone("8199669966");
 		clienteVO.setCelular("8199669966");
@@ -43,7 +41,6 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		enderecoVO.setBairro("Boa Viagem");
 		enderecoVO.setCidade("Recife");
 		enderecoVO.setEstado("PE");
-		//enderecoVO.setEndPadrao(false);
 		
 		clienteVO.add(enderecoVO);
 		
@@ -54,9 +51,6 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		
 		assertNotNull(clienteEntitycriada.getNome());
 		assertEquals(clienteVO.getNome(), clienteEntitycriada.getNome());
-		
-		assertNotNull(clienteEntitycriada.getTipoPessoa());
-		assertEquals(clienteVO.getTipoPessoa(), clienteEntitycriada.getTipoPessoa());
 		
 		assertNotNull(clienteEntitycriada.getTelefone());
 		assertEquals(clienteVO.getTelefone(), clienteEntitycriada.getTelefone());
@@ -96,19 +90,13 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		assertEquals(clienteVO.getEnderecos().get(0).getCep(), 
 				clienteEntitycriada.getEnderecos().get(0).getCep());
 		
-//		assertEquals(clienteVO.getEnderecos().get(0).isEndPadrao(), 
-//				clienteEntitycriada.getEnderecos().get(0).isEndPadrao());
-		
 		
 		ClienteVO voClienteCriado = new ClienteFactory(clienteEntitycriada).toVO();
 		
 		assertNotNull(voClienteCriado);
 		assertNotNull(voClienteCriado.getNome());
 		assertEquals(clienteVO.getNome(), voClienteCriado.getNome());
-		
-		assertNotNull(voClienteCriado.getTipoPessoa());
-		assertEquals(clienteVO.getTipoPessoa(), voClienteCriado.getTipoPessoa());
-		
+
 		assertNotNull(voClienteCriado.getDocPrincipal());
 		assertEquals(clienteVO.getDocPrincipal(), voClienteCriado.getDocPrincipal());
 		
@@ -148,16 +136,7 @@ import net.atos.api.cliente.repository.entity.ClienteEntity;
 		assertEquals(clienteVO.getEnderecos().get(0).getCep(), 
 				voClienteCriado.getEnderecos().get(0).getCep());
 		
-//		assertEquals(clienteVO.getEnderecos().get(0).isEndPadrao(), 
-//				voClienteCriado.getEnderecos().get(0).isEndPadrao());
 
-		
-
-		
-		
-		
-		
-		//fail("Not yet implemented");
 	}
 
 }

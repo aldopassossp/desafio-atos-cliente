@@ -14,6 +14,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ClienteVO{
 	
@@ -23,9 +24,6 @@ public class ClienteVO{
 	@Size(min=3, max=100, message = "Campo nome deve ter "
 			+ "no mínimo 3 carecteres, máximo 100 carecteres")
 	private String nome;
-	
-//	@NotNull(message = "Campo Tipo Pessoa não pode ser nulo e nem vazio")
-	private TipoPessoaEnum tipoPessoa;
 	
 	@NotNull(message = "Campo docPrincipal não pode ser nulo e nem vazio")
 	@Pattern(regexp = "[0-9]+", message = "Apenas numeros")
@@ -54,7 +52,6 @@ public class ClienteVO{
 	private LocalDate dataCriacao;
 	
 //	@NotNull(message = "Campo Endereço não pode ser nulo")
-	@Size(min = 1, message = "Campo Endereço deve ter pelo menos um Endereço")
 	@Valid
 	private List<EnderecoVO> enderecos;
 
@@ -72,12 +69,6 @@ public class ClienteVO{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public TipoPessoaEnum getTipoPessoa() {
-		return tipoPessoa;
-	}
-
-	public void setTipoPessoa(TipoPessoaEnum tipoPessoa) { this.tipoPessoa = tipoPessoa;}
 
 	public String getDocPrincipal() {
 		return docPrincipal;
@@ -145,13 +136,12 @@ public class ClienteVO{
 
 	@Override
 	public String toString() {
-		return "ClienteVO [id=" + id + ", nome=" + nome + ", tipoPessoa=" + tipoPessoa + ", docPrincipal="
+		return "ClienteVO [id=" + id + ", nome=" + nome + ", docPrincipal="
 				+ docPrincipal + ", telefone=" + telefone + ", celular=" + celular + ", email=" + email
 				+ ", dataNascimento=" + dataNascimento + ", dataCriacao=" + dataCriacao + ", enderecos=" + enderecos
 				+ "]";
 	}
-	
-	
+
 
 
 }

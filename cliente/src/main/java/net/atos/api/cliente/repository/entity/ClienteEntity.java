@@ -2,7 +2,6 @@ package net.atos.api.cliente.repository.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,17 +9,10 @@ import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -28,8 +20,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import net.atos.api.cliente.domain.TipoPessoaEnum;
 
 @Entity
 @Table(name = "TB_CLIENTE")
@@ -48,11 +38,6 @@ public class ClienteEntity implements Serializable{
 	@Column(name = "NOME_CLIENTE")
 	@NotNull(message = "Campo Nome não pode ser nulo")
 	private String nome;
-
-	@Column(name = "TIPO_PESSOA", insertable = false, updatable = false)
-//	@NotNull(message = "Campo Tipo Pessoa não pode ser nulo")
-	@Enumerated(EnumType.STRING)
-	private TipoPessoaEnum tipoPessoa;
 
 	@Column(name = "DOC_PRINCIPAL")
 	@NotNull(message = "Campo docPrincipal não pode ser nulo e nem vazio")
@@ -79,13 +64,8 @@ public class ClienteEntity implements Serializable{
 
 
 //	@NotNull(message = "Campo Endereços não pode ser nulo")
-//	@Size(min = 1, message = "Campo Endereços deve ser pelo menos um item")
-//	@Valid
-//	@OneToMany(mappedBy = "tb_cliente")
-//	@JsonIgnore
-//	@OneToMany(fetch = FetchType.EAGER)
-	@OneToMany(cascade = CascadeType.ALL)
-	@JsonIgnore
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
 	private List<EnderecosEntity> enderecos;
 
 
@@ -106,16 +86,6 @@ public class ClienteEntity implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-
-	public TipoPessoaEnum getTipoPessoa() {
-		return tipoPessoa;
-	}
-
-
-	public void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
 	}
 
 
@@ -196,13 +166,10 @@ public class ClienteEntity implements Serializable{
 		this.enderecos = enderecosLocal;
 	}
 
-
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -219,14 +186,11 @@ public class ClienteEntity implements Serializable{
 
 	@Override
 	public String toString() {
-		return "ClienteEntity [id=" + id + ", nome=" + nome + ", tipoPessoa=" + tipoPessoa + ", docPrincipal="
+		return "ClienteEntity [id=" + id + ", nome=" + nome  + ", docPrincipal="
 				+ docPrincipal + ", telefone=" + telefone + ", celular=" + celular + ", email=" + email
 				+ ", dataNascimento=" + dataNascimento + ", dataCriacao=" + dataCriacao + ", enderecos=" + enderecos
 				+ "]";
 	}
 	
-	
-
-
 
 }
